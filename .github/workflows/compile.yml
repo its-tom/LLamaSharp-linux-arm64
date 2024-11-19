@@ -476,22 +476,27 @@ jobs:
           # Make all directories at once
           mkdir --parents deps/{avx,avx2,avx512,osx-arm64,osx-x64,osx-x64-rosetta2,cu11.7.1,cu12.2.0,vulkan,android-arm64-v8a,android-x86,android-x86_64}
 
-          # Linux
-          cp artifacts/ggml-bin-linux-noavx-x64.so/libggml.so           deps/libggml.so
-          cp artifacts/llama-bin-linux-noavx-x64.so/libllama.so         deps/libllama.so
-          cp artifacts/llava-bin-linux-noavx-x64.so/libllava_shared.so  deps/libllava_shared.so
+          # Linux arm64
+          cp artifacts/ggml-bin-linux-noavx-arm64.so/libggml.so           deps/linux-arm64/libggml.so
+          cp artifacts/llama-bin-linux-noavx-arm64.so/libllama.so         deps/linux-arm64/libllama.so
+          cp artifacts/llava-bin-linux-noavx-arm64.so/libllava_shared.so  deps/linux-arm64/libllava_shared.so
 
-          cp artifacts/ggml-bin-linux-avx-x64.so/libggml.so             deps/avx/libggml.so
-          cp artifacts/llama-bin-linux-avx-x64.so/libllama.so           deps/avx/libllama.so
-          cp artifacts/llava-bin-linux-avx-x64.so/libllava_shared.so    deps/avx/libllava_shared.so
+          # Linux x64
+          cp artifacts/ggml-bin-linux-noavx-x64.so/libggml.so           deps/linux-x64/libggml.so
+          cp artifacts/llama-bin-linux-noavx-x64.so/libllama.so         deps/linux-x64/libllama.so
+          cp artifacts/llava-bin-linux-noavx-x64.so/libllava_shared.so  deps/linux-x64/libllava_shared.so
 
-          cp artifacts/ggml-bin-linux-avx2-x64.so/libggml.so            deps/avx2/libggml.so
-          cp artifacts/llama-bin-linux-avx2-x64.so/libllama.so          deps/avx2/libllama.so
-          cp artifacts/llava-bin-linux-avx2-x64.so/libllava_shared.so   deps/avx2/libllava_shared.so
+          cp artifacts/ggml-bin-linux-avx-x64.so/libggml.so             deps/linux-x64/avx/libggml.so
+          cp artifacts/llama-bin-linux-avx-x64.so/libllama.so           deps/linux-x64/avx/libllama.so
+          cp artifacts/llava-bin-linux-avx-x64.so/libllava_shared.so    deps/linux-x64/avx/libllava_shared.so
 
-          cp artifacts/ggml-bin-linux-avx512-x64.so/libggml.so          deps/avx512/libggml.so
-          cp artifacts/llama-bin-linux-avx512-x64.so/libllama.so        deps/avx512/libllama.so
-          cp artifacts/llava-bin-linux-avx512-x64.so/libllava_shared.so deps/avx512/libllava_shared.so
+          cp artifacts/ggml-bin-linux-avx2-x64.so/libggml.so            deps/linux-x64/avx2/libggml.so
+          cp artifacts/llama-bin-linux-avx2-x64.so/libllama.so          deps/linux-x64/avx2/libllama.so
+          cp artifacts/llava-bin-linux-avx2-x64.so/libllava_shared.so   deps/linux-x64/avx2/libllava_shared.so
+
+          cp artifacts/ggml-bin-linux-avx512-x64.so/libggml.so          deps/linux-x64/avx512/libggml.so
+          cp artifacts/llama-bin-linux-avx512-x64.so/libllama.so        deps/linux-x64/avx512/libllama.so
+          cp artifacts/llava-bin-linux-avx512-x64.so/libllava_shared.so deps/linux-x64/avx512/libllava_shared.so
 
           # Windows
           cp artifacts/ggml-bin-win-noavx-x64.dll/ggml.dll            deps/ggml.dll
@@ -547,13 +552,13 @@ jobs:
           cp artifacts/llava-bin-win-cublas-cu12.2.0-x64.dll/llava_shared.dll   deps/cu12.2.0/llava_shared.dll
 
           # Linux CUDA
-          cp artifacts/ggml-bin-linux-cublas-cu11.7.1-x64.so/libggml.so           deps/cu11.7.1/libggml.so
-          cp artifacts/llama-bin-linux-cublas-cu11.7.1-x64.so/libllama.so         deps/cu11.7.1/libllama.so
-          cp artifacts/llava-bin-linux-cublas-cu11.7.1-x64.so/libllava_shared.so  deps/cu11.7.1/libllava_shared.so
+          cp artifacts/ggml-bin-linux-cublas-cu11.7.1-x64.so/libggml.so           deps/linux-x64/cu11.7.1/libggml.so
+          cp artifacts/llama-bin-linux-cublas-cu11.7.1-x64.so/libllama.so         deps/linux-x64/cu11.7.1/libllama.so
+          cp artifacts/llava-bin-linux-cublas-cu11.7.1-x64.so/libllava_shared.so  deps/linux-x64/cu11.7.1/libllava_shared.so
 
-          cp artifacts/ggml-bin-linux-cublas-cu12.2.0-x64.so/libggml.so           deps/cu12.2.0/libggml.so
-          cp artifacts/llama-bin-linux-cublas-cu12.2.0-x64.so/libllama.so         deps/cu12.2.0/libllama.so
-          cp artifacts/llava-bin-linux-cublas-cu12.2.0-x64.so/libllava_shared.so  deps/cu12.2.0/libllava_shared.so
+          cp artifacts/ggml-bin-linux-cublas-cu12.2.0-x64.so/libggml.so           deps/linux-x64/cu12.2.0/libggml.so
+          cp artifacts/llama-bin-linux-cublas-cu12.2.0-x64.so/libllama.so         deps/linux-x64/cu12.2.0/libllama.so
+          cp artifacts/llava-bin-linux-cublas-cu12.2.0-x64.so/libllava_shared.so  deps/linux-x64/cu12.2.0/libllava_shared.so
 
           # Windows Vulkan
           cp artifacts/ggml-bin-win-vulkan-x64.dll/ggml.dll           deps/vulkan/ggml.dll
@@ -561,9 +566,9 @@ jobs:
           cp artifacts/llava-bin-win-vulkan-x64.dll/llava_shared.dll  deps/vulkan/llava_shared.dll
             
           # Linux Vulkan
-          cp artifacts/ggml-bin-linux-vulkan-x64.so/libggml.so           deps/vulkan/libggml.so
-          cp artifacts/llama-bin-linux-vulkan-x64.so/libllama.so         deps/vulkan/libllama.so
-          cp artifacts/llava-bin-linux-vulkan-x64.so/libllava_shared.so  deps/vulkan/libllava_shared.so
+          cp artifacts/ggml-bin-linux-vulkan-x64.so/libggml.so           deps/linux-x64/vulkan/libggml.so
+          cp artifacts/llama-bin-linux-vulkan-x64.so/libllama.so         deps/linux-x64/vulkan/libllama.so
+          cp artifacts/llava-bin-linux-vulkan-x64.so/libllava_shared.so  deps/linux-x64/vulkan/libllava_shared.so
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
