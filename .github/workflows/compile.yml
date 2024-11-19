@@ -74,12 +74,6 @@ jobs:
         include:
           - build: 'noavx'
             defines: '-DGGML_AVX=OFF -DGGML_AVX2=OFF -DGGML_FMA=OFF'
-          - build: 'avx2'
-            defines: ''
-          - build: 'avx'
-            defines: '-DGGML_AVX2=OFF'
-          - build: 'avx512'
-            defines: '-DGGML_AVX512=ON'
     runs-on: ubuntu-20.04
     steps:
       - name: Setup QEMU
