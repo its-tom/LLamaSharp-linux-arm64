@@ -20,8 +20,8 @@ env:
   COMMON_DEFINE: -DGGML_NATIVE=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=ON -DLLAMA_BUILD_SERVER=OFF -DBUILD_SHARED_LIBS=ON -DGGML_RPC=ON
 
 jobs:
-  compile-linux:
-    name: Compile (Linux)
+  compile-linux-x64:
+    name: Compile (Linux x64)
     strategy:
       fail-fast: true
       matrix:
@@ -64,6 +64,56 @@ jobs:
         with:
           path: ./build/examples/llava/libllava_shared.so
           name: llava-bin-linux-${{ matrix.build }}-x64.so
+          if-no-files-found: error
+
+  compile-linux-arm64:
+    name: Compile (Linux arm64)
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - build: 'noavx'
+            defines: '-DGGML_AVX=OFF -DGGML_AVX2=OFF -DGGML_FMA=OFF'
+          - build: 'avx2'
+            defines: ''
+          - build: 'avx'
+            defines: '-DGGML_AVX2=OFF'
+          - build: 'avx512'
+            defines: '-DGGML_AVX512=ON'
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+      - uses: actions/checkout@v4
+        with:
+          repository: ggerganov/llama.cpp
+          fetch-depth: 0
+          ref: '${{ github.event.inputs.llama_cpp_commit }}'
+      - name: Build
+        id: cmake_build
+        run: |
+          mkdir build
+          cd build
+          cmake .. ${{ env.COMMON_DEFINE }} ${{ matrix.defines }}
+          cmake --build . --config Release -j ${env:NUMBER_OF_PROCESSORS}
+          ls -R
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./build/src/libllama.so
+          name: llama-bin-linux-${{ matrix.build }}-arm64.so
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./build/ggml/src/libggml.so
+          name: ggml-bin-linux-${{ matrix.build }}-arm64.so
+          if-no-files-found: error
+      - name: Upload Llava
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./build/examples/llava/libllava_shared.so
+          name: llava-bin-linux-${{ matrix.build }}-arm64.so
           if-no-files-found: error
 
   compile-windows:
